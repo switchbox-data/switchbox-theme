@@ -8,6 +8,7 @@ fig-cap-location: top
 format:
   html:
     page-layout: article
+    #theme: switchbox.scss
 ---
 
 # Brooklyn residents who are highly energy burdened today
