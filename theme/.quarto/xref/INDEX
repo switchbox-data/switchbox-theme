@@ -1,0 +1,13 @@
+{
+  "notebooks/analysis.qmd": {
+    "analysis.embed.ipynb": "c43c1e83",
+    "analysis.out.ipynb": "1e60b687",
+    "analysis-preview.html": "d020d88c"
+  },
+  "index.qmd": {
+    "index.html": "9d53edb8"
+  },
+  "notebooks/analysis.embed.ipynb": {
+    "analysis.embed-preview.html": "3e697b2c"
+  }
+}
