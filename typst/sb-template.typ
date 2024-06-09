@@ -1,7 +1,14 @@
+/***********************************************************
+* SWITCHBOX TYPST THEME
+***********************************************************/
+
 #import "@preview/drafting:0.2.0": *
 
 
-// Paper and page layout
+////////////////////////////////////////////////////////////
+// PAPER AND PAGE LAYOUT
+////////////////////////////////////////////////////////////
+
 #let paper = (
   type: "us-letter",
   width: 8.5in,
@@ -28,36 +35,90 @@
   bottom: page-margins.bottom
 )
 
-// Colors
+
+////////////////////////////////////////////////////////////
+// COLORS
+////////////////////////////////////////////////////////////
+
 #let colors = (
-  sky: rgb("68BED8"),
-  carrot: rgb("FC9706"),
-  carrot-lighter: rgb(252, 151, 6, 40%),
-  midnight: rgb("023047"),
-  midnight-lighter: rgb("0B6082"),
-  saffron: rgb("FFC729"),
-  pistachio: rgb("A0AF12"),
-  pistachio-darker: rgb("546800"),
+  sky: rgb(104, 190, 216) ,              // #68BED8
+  carrot: rgb(252, 151, 6),              // "FC9706"
+  carrot-lighter: rgb(252, 151, 6, 40%), 
+  midnight: rgb(2, 48, 71),              // "#023047"
+  midnight-lighter: rgb(11, 96, 130),    // "#0B6082"
+  saffron: rgb(255, 199, 41),            // "#"FFC729"
+  pistachio: rgb(160, 175, 18),          
+  pistachio-darker: rgb(84, 104, 0),     // "#546800"
   pistachio-lighter: rgb(160, 174, 18, 15%)
 )
 
-// Fonts
+////////////////////////////////////////////////////////////
+// FONTS
+////////////////////////////////////////////////////////////
+
+// Headings, notes, captions
 #let sans-fonts = (
+    "GT Planar",
     "GT Planar Trial",
     "Franklin Gothic"
   )
 
-// Fonts used for headings and body copy
+// Body text
 #let serif-fonts = (
   "Farnham Text",
-  "Georgia",
+  "Georgia"
 )
 
+// Tables
 #let tabular-fonts = (
   "IBM Plex Sans"
 )
 
-// Page elements
+#let code-fonts = {
+  "SF Mono"
+}
+
+////////////////////////////////////////////////////////////
+// PAGE ELEMENTS: TEXT & LAYOUT
+////////////////////////////////////////////////////////////
+
+// Body paragraph text
+// ==================
+#let body-par-params = (
+  font: serif-fonts,
+  weight: 400,
+  style: "normal",
+  size: 10pt,
+  leading: 6pt,
+  justify: true,
+  hyphenate: true,
+  first-line-indent: 0em,
+  vabove: 0.12in,
+  vbelow: 0.12in, // Guidance says 0.12in but this is too thin.
+  fill: luma(30))
+
+#let format-body-par(content) = {
+  block(width: 100%,
+    below: body-par-params.vbelow, above: body-par-params.vabove,
+
+    par(first-line-indent: body-par-params.first-line-indent,
+      leading: body-par-params.leading, 
+      justify: body-par-params.justify,
+
+      text(font: body-par-params.font, 
+        size: body-par-params.size, 
+        weight: body-par-params.weight,
+        style: body-par-params.style, 
+        hyphenate: body-par-params.hyphenate,
+        fill: body-par-params.fill, 
+        content)))
+}
+
+// Title and top-matter
+// ====================
+#let title-params = (font: sans-fonts, size: 32, weight: 900, fill: black)
+
+// Footer: Right-aligned page number with overline
 #let format-footer(content) = {
   set text(font: sans-fonts, size: 8pt, fill: rgb(0%,0%,0%,40%))
   
@@ -67,9 +128,150 @@
   content})
 }
 
+// Headings
+// ========
+#let heading-numbering = none
+
+#let heading-params = (  
+  h1: (font: sans-fonts, 
+       size: 27pt, 
+       leading: 4pt, 
+       tracking: 0em,
+       weight: "black", 
+       fill: black, 
+       case: it => { it },
+       vabove: 1.2em, 
+       vbelow: 0.0625in, 
+       overline: (stroke: none, vbelow: 0em)),
+
+  h2: (font: sans-fonts, 
+        size: 8.5pt, 
+        tracking: 0em,
+        leading: 7.5pt,
+        weight: "black", 
+        fill: black,
+        case: it => { upper(it) },
+        vabove: 0.125in + 2em, 
+        vbelow: 0.25in,
+        overline: (stroke: 2pt+black, vbelow: 0.1875in - 1em)),
+
+  h3: (font: sans-fonts, 
+        size: 9pt, 
+        tracking: 0em,
+        leading: 7pt, 
+        weight: "semibold", 
+        fill: black, 
+        case: it => { it }, 
+        vabove: 0.3125in, 
+        vbelow: 0.25in,
+        overline: (stroke: 0.25pt+black, vbelow: 0.1875in - 1em))
+)
+
+#let format-heading(level) = {
+  (h) => {
+    let hl = heading-params.at(level)
+
+    set block(width: 100%,
+      stroke: (top: hl.overline.stroke), 
+      above: hl.vabove,
+      inset: (top: hl.overline.vbelow))
+      set par(leading: hl.leading, justify: false)
+      set text(font: hl.font, 
+        size: hl.size, 
+        weight: hl.weight, tracking: hl.tracking)
+    
+      (hl.case)(h) 
+    v(hl.vbelow, weak: level != "h1")
+    }
+}
+
+
+// Hyperlinks
+// ==========
+#let body-link-colors = (
+  text: colors.sky, 
+  underline: colors.midnight-lighter)
+
+#let format-body-links(content) = {
+  set text(fill: body-link-colors.underline)
+  set underline(stroke: 0.5pt+body-link-colors.text, evade: false, offset: 1.6pt)
+  underline(content)
+}
+
+
+// Number lists
+// ============
+#let enum-params = (
+  // 0.375in - approx width of number
+  // the way typst does enum indents is a little goofy
+  body-indent: 0.375in - 1.5em, 
+  first-line-indent: 0in,
+  justify: false,
+  vabove: body-par-params.vabove,
+  vbelow: body-par-params.vbelow,
+  // This is spec, but looks pretty bad, and only works if you abuse list
+  // markdown. 
+  // See: https://typst.app/docs/reference/model/list/#parameters-spacing
+  vbetween: 0.05in,  
+  num-font: sans-fonts,
+  num-font-weight: 400,
+  num-font-color: colors.sky
+)
+
+#let enum-numbering = n => {
+  text(font: enum-params.num-font,
+        weight: enum-params.num-font-weight, fill: enum-params.num-font-color, [#n.])
+}
+
+#let format-enum(content) = {
+  block(above: enum-params.vabove, 
+    below: enum-params.vbelow, 
+    par(justify: enum-params.justify, content))
+}
+
+// Bullet lists
+// ============
+#let list-params = (
+  body-indent: 0.3125in - 1.5em,
+  first-line-indent: 0in,
+  justify: false,
+  vabove: 0.12in,
+  vbelow: 0.12in,
+  // This is spec, but looks pretty bad, and only works if you abuse list
+  // markdown. 
+  // See: https://typst.app/docs/reference/model/list/#parameters-spacing
+  vbetween: 0.05in,
+  num-font: sans-fonts,
+  marker: text(font: sans-fonts, fill: colors.sky, "◯")
+)
+
+#let format-list(content) =  {
+  block(above: list-params.vabove, 
+    below: list-params.vbelow, 
+    par(justify: list-params.justify, content))
+}
+
+// Widebox
+// =======
+// Content that spans the whole page (for wide figures, etc.)
 #let wideblock(content) = block(
   width:100% + column-widths.gutter + column-widths.secondary, content)
 
+
+// Draft watermark
+// ===============
+#let format-draft-mark(draft) = {
+  if draft {
+      rotate(45deg, 
+        text(font: sans-fonts, size:200pt, fill: rgb(0, 0, 0, 5%), [DRAFT]))
+  }
+}
+
+////////////////////////////////////////////////////////////
+// PAGE ELEMENTS: TABLES & FIGURES
+////////////////////////////////////////////////////////////
+// Tables
+// ======
  #let table-grid(x, y) = (
   left: if x > 0 { 0.5pt } else { none },
   right: none,
@@ -77,145 +279,143 @@
   bottom: 0.5pt
   )
 
+#let format-table(it) = { 
+  //set table(stroke: table-grid, inset: 0.5em)
+  show table.cell.where(y: 0): set text(weight: 900)
+  set par(justify: false, leading: 0.675em)
+  set text(font: tabular-fonts, weight: 300)
+  it
+}
 
-// Markup functions
-#let define(content) = {
-  
+// Figures
+// =======
+// Put captions on top.
+#let format-figure(it) = {
+  it.caption
+  it.body
+}
+
+// Figure captions 
+// ===============
+// TODO: Change upper to small caps when I figure out how to get 
+// this working (hopefully w/ licensed GT Planar)
+
+#let format-captions(it) = {
+    // Print the fig type label
+    let fig-kind = if (it.kind == table) {
+      upper("tab")
+    } else if (it.kind == raw) {
+      upper("listing")
+    } else {
+      upper("fig")
+    }
+
+    set par(leading: 4pt)
+    set align(left)  
+    set text(font: sans-fonts, fill: colors.carrot, weight: 900)  
+    [#fig-kind 
+     #counter(figure.where(kind: it.kind)).display(it.numbering) 
+     #h(0.5em)]
+    set text(fill: rgb(0, 0, 0, 40%), weight: 400)
+    it.body
+  }
+
+////////////////////////////////////////////////////////////
+// PAGE ELEMENTS: SIDENOTES
+////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////
+// TEXT MARKUP FUNCTIONS
+////////////////////////////////////////////////////////////
+
+// Definitions
+#let define(content) = {  
   set text(fill: colors.pistachio-darker)
   underline(stroke: 13pt + colors.pistachio-lighter, offset: -3pt, evade: false, background: true, content)
 }
 
+// Last word.
+#let icon = {
+  box(inset: (left: 1pt), image("icon-carrot.png", height: 0.75em))
+}
+
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+// TEMPLATE BEGINS HERE
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
 #let template(
-  title: [Paper Title],
+  title: none,
   shorttitle: none,
   subtitle: none,
-  authors: (
-    (
-      name: "First Last",
-      role: none,
-      organization: none,
-      location: none,
-      email: none
-    ),
-  ),
-  date: datetime.today(),
-  document-number: none,
+  authors: none,
+  date: none,
   draft: false,
-  distribution: none,
   abstract: none,
   publisher: none,
   toc: false,
   bib: none,
-  footer-content: none,
   doc
 ) = {
   // Document metadata
   set document(title: title, author: authors.map(author => author.name))
 
-  // Just a suttle lightness to decrease the harsh contrast
-  set text(fill:luma(30))
+  // Page layout
+  set page(
+    paper: paper.type,
+    margin: body-margins, 
+    header: none,
+    footer: context {
+      format-footer([#counter(page).display()])
+    },
+    background: format-draft-mark(draft)
+  )
 
   // Tables and figures
-  show table: it => {
-    v(1em)
-    set par(justify: false, leading: 0.675em)
-    set text(font: tabular-fonts, weight: 300)
-    it
-    v(1em)
-  }
-  show table: set table(stroke: table-grid, inset: 0.5em)
-  show table.cell.where(y: 0): set text(weight: 900)
+  show figure.caption: format-captions
+  show figure: format-figure
 
+  set table(stroke: table-grid, inset: 0.5em)
+  show table: format-table
 
-  show figure: set figure.caption(separator: [.#h(0.5em)])
-  show figure.caption: set align(left)
-  show figure.caption: set text(font: sans-fonts)
-
-  show figure.where(kind: table): set figure.caption(position: top)
-show figure.where(kind: table): set figure(supplement: text(fill: colors.carrot, weight: 900, [Table]), numbering: n => text(fill: colors.carrot, weight: 900, [#n]))
-  show figure.where(kind: table): set figure.caption(position: top)
-  
-  show figure.where(kind: image): set figure(supplement: text(fill: colors.carrot, weight: 900, [Fig]), numbering: n => text(fill: colors.carrot, weight: 900, [#n]))
-  show figure.where(kind: image): set figure.caption(position: top)
-
-  show figure.where(kind: raw): set figure.caption(position: top)
-  show figure.where(kind: raw): set figure(supplement: [Code], numbering: "1")
-  show raw: set text(font: sans-fonts, size: 10pt)
+  // Hyperlinks
+  show link: format-body-links
 
   // Equations
   set math.equation(numbering: "(1)")
   show math.equation: set block(spacing: 0.65em)
 
-  show link: set text(fill: colors.midnight-lighter)
-  show link: set underline(stroke: 0.5pt+colors.sky, evade:false, offset: 1.6pt)
-  show link: underline
-
-  // Lists
+  // Numbered Lists
   set enum(
-    indent: 1em,
-    body-indent: 1em,
+    indent:  enum-params.first-line-indent,
+    body-indent: enum-params.body-indent, 
+    numbering: enum-numbering,
+    spacing: enum-params.vbetween
   )
-  set enum(numbering: n => text(font: sans-fonts, fill: colors.sky, [#n.]))
-  show enum: set par(justify: false)
+  show enum: format-enum
 
+  // Bullet Lists
   set list(
-    indent: 1em,
-    body-indent: 1em,
+    indent: list-params.first-line-indent,
+    body-indent: list-params.body-indent,
+    spacing: list-params.vbetween,
+    marker: list-params.marker
   )
 
-  show list: set par(justify: false)
-  set list(marker: text(font: sans-fonts, fill: colors.sky, "◯"))
-  
+  show list: format-list  
 
   // Headings
-  set heading(numbering: none,)
-  show heading.where(level:1): it => {
-    set par(leading: 4pt, justify: false)
-    text(font: sans-fonts, size: 27pt, weight: "black", it)
-    v(0.0625in)
-  }
+  set heading(numbering: heading-numbering)
+ 
+  show heading.where(level:1): format-heading("h1")
+  show heading.where(level:2): format-heading("h2")
+  show heading.where(level:3): format-heading("h3")
+ 
+  show heading: it => { if it.level <= 3 {it} else {} }
 
-  show heading.where(level:2): it => {
-    v(0.125in + 0.1875in, weak: true)  
-    line(length: 100%, stroke: 2pt + black)
-    set par(leading: 16pt)
-    set text(font: sans-fonts, size: 8.5pt, weight: "black", tracking: 0.075em)
-    upper(it) 
-    v(0.25in)
-  }
-
-  show heading.where(level:3): it => {
-    v(0.3125in, weak:true)
-    line(length: 100%, stroke: black + 0.25pt)
-    set par(leading: 16pt)
-    text(font: sans-fonts, size: 9pt,weight:"semibold", it)
-    v(0.25in)
-  }
-
-  show heading: it => {
-    if it.level <= 3 {it} else {}
-  }
-
-  // Page setup
-  set page(
-    paper: paper.type,
-    margin: body-margins, 
-    header: none,
-    
-    footer: context {
-      format-footer([#counter(page).display()])
-    },
-    background: if draft {rotate(45deg,text(font:"Gill Sans MT",size:200pt, fill: rgb("FFEEEE"))[DRAFT])}
-  )
-
-  set par(
-    justify: true,
-    leading: 6pt,
-    first-line-indent: 0em,
-  )
-  show par: set block(
-    below: 1.2em
-  )
 
   // Frontmatter
   let titleblock(title: none,subtitle: none,) = wideblock({
@@ -283,7 +483,6 @@ show figure.where(kind: table): set figure(supplement: text(fill: colors.carrot,
   text(size:11pt,font: sans-fonts,{
     linebreak()
     if date != none {upper(date.display("[month repr:long] [day], [year]"))}
-    if document-number != none {document-number}
   })
   
 
@@ -297,17 +496,11 @@ show figure.where(kind: table): set figure(supplement: text(fill: colors.carrot,
     stroke: none,
     side: right,
     margin-right: column-widths.secondary, 
-    margin-left: paper.width - (page-margins.right + column-widths.primary + column-widths.secondary),
+    margin-left: column-widths.gutter + page-margins.left
   )
 
   // Body text
-  set text(
-    font: serif-fonts,
-    style: "normal",
-    weight: "regular",
-    hyphenate: true,
-    size: 10pt
-  )
+  show: par => format-body-par(par)
 
   doc
 

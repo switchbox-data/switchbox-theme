@@ -23,6 +23,7 @@
       email: "fred@yabbadabba.doo"
     ),
   ),
+  draft: true
 )
 
 = Brooklyn residents who are highly energy burdened today
@@ -48,6 +49,7 @@ Analyzing solar installation data from NYSERDA and Lawrence
 Berkeley National Lab (@tab-bucks-cost), we find that:
 
 - NY has a large rooftop solar gap: homeowners with an annual income above \$50,000 are 2.5x more likely to have rooftop solar than those making below \$50,000, who don't always pay enough income tax to claim the full credit.
+
 - NY's solar tax credit is inequitable: households making less than \$50,000 make up 24% of owner-occupied households in New York State, but have only received 5% of the state's residential tax credit subsidies.
 
 
@@ -87,11 +89,12 @@ findings:
 #linebreak()
 ]
 
-What could be driving this “two tier” disparity (@fig-tax-expenditure) #note(numbered: false)[#figure(image("wc-solar-chart.png"), caption: [Yearly tax expenditure, NY solar tax credit. Source: NYS Tax Expenditure Reports.])<fig-tax-expenditure>] in instal-
-lation rates?
+What could be driving this “two tier” disparity (@fig-tax-expenditure) #note(numbered: false)[#figure(image("wc-solar-chart.png"), caption: [Yearly tax expenditure, NY solar tax credit. Source: NYS Tax Expenditure Reports.])<fig-tax-expenditure>] in installation rates?
 
 + High up-front costs. Solar panels are expensive, costing tens of thousands of dollars to install, so lower income people often can't afford them.
+
 + Low creditworthiness.
+
 + Exclusion from tax credits.
 
 Furthermore, 88% of these highly-burdened homeowners live in single family or low-rise multifamily buildings. Unlike residents of large multifamily buildings, where the savings from rooftop solar get diluted over many units, these households may be able to meaningfully cut their electricity bills by installing panels.
@@ -99,7 +102,7 @@ Furthermore, 88% of these highly-burdened homeowners live in single family or lo
 In total, making the tax credit fully refundable could benefit up to 63% of all highly energy-burdened families in New York.
 
 
-= Findings
+= Findings \
 == Rooftop Solar Gap
 While 25% of all homeowners made less than \$50,000 a year, these households installed only *10%* of solar projects between 2010 and 2022. This is New York State's *rooftop solar gap*. 
 
@@ -122,5 +125,6 @@ solar penetration rates are similar for all income buckets above
 === Discussion
 What could be driving this "two tier" disparity in installation rates?
 
-High up-front costs: solar panels #note[The federal Residential Clean Energy
-Credit administered by the IRS just received a 10-year extension through the Inflation Reduction Act.] are expensive, costing tens of thousands of dollars to install, so lower income people often can't afford them. The rise of solar leases, which allow home owners to rent solar panels while paying nothing up-front, has significantly lowered up-front cost as an obstacle to adoption, however.
+High up-front costs: solar panels #note[The Federal Residential Clean Energy
+Credit administered by the IRS just received a 10-year extension through the Inflation Reduction Act.] are expensive, costing tens of thousands of dollars to install, so lower income people often can't afford them. The rise of solar leases, which allow home owners to rent solar panels while paying nothing up-front, has significantly lowered up-front cost as an obstacle to adoption, however. #icon
+
