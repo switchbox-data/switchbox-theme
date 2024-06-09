@@ -59,8 +59,8 @@
 // Headings, notes, captions
 #let sans-fonts = (
     "GT Planar",
-    "GT Planar Trial",
-    "Franklin Gothic"
+    //"GT Planar Trial",
+    //"Franklin Gothic"
   )
 
 // Body text
@@ -137,7 +137,7 @@
        size: 27pt, 
        leading: 4pt, 
        tracking: 0em,
-       weight: "black", 
+       weight: "bold", 
        fill: black, 
        case: it => { it },
        vabove: 1.2em, 
@@ -159,7 +159,7 @@
         size: 9pt, 
         tracking: 0em,
         leading: 7pt, 
-        weight: "semibold", 
+        weight: "bold", 
         fill: black, 
         case: it => { it }, 
         vabove: 0.3125in, 

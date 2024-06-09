@@ -33,10 +33,10 @@ New York State's Solar Tax Credit is the largest of several state
 incentives available to homeowners installing rooftop solar.#note[See NY Scoping Plan Integration Analysis (NYSERDA 2022)] The credit can pay for 25% of a residential rooftop solar installation, or \$5,000, whichever is less.
 
 The *Residential Solar Tax Credit Reform Act* (#link("https://www.nysenate.gov/legislation/bills/2023/S3596/amendment/A")[S3596/A6739])
-updates the current tax credit to make it fully refundable, so that low-income homeowners and people living in disadvantaged communities can also benefit from this incentive.#note(dy:-2em)[§1 of S3596/A6739 (Harckham and
-Walker 2024) allows residents to receive the full incentive from the state, regardless how much they owe in income tax. Today, a homeowner installing a \$20K system that owes \$1K in taxes would only receive \$1K, not the full \$5K they are eligible for.] The Act also increases #note(dy: 10em)[The All-Electric Building Act of 2023
+updates the current tax credit to make it fully refundable, so that low-income homeowners and people living in disadvantaged communities can also benefit from this incentive.#note(dy:-4em)[§1 of S3596/A6739 (Harckham and
+Walker 2024) allows residents to receive the full incentive from the state, regardless how much they owe in income tax. Today, a homeowner installing a \$20K system that owes \$1K in taxes would only receive \$1K, not the full \$5K they are eligible for.] The Act also increases #note(dy: 7em)[The All-Electric Building Act of 2023
 (Kavanagh and Gallagher 2023), a version of
-which was enacted in the state’s FY ’23–24 budget.] the tax credit amount to \$10,000, which has
+which was enacted in the state's FY '23--24 budget.] the tax credit amount to \$10,000, which has
 not been updated since 2006.
 
 The solar-project-by-income percentages in Figure 1 and Section 3.1 are based on the Residential Solar-Adopter Income and Demographic datasets from Lawrence Berkeley National Lab
@@ -48,12 +48,7 @@ NYS county at each income level.
 Analyzing solar installation data from NYSERDA and Lawrence
 Berkeley National Lab (@tab-bucks-cost), we find that:
 
-- NY has a large rooftop solar gap: homeowners with an annual income above \$50,000 are 2.5x more likely to have rooftop solar than those making below \$50,000, who don't always pay enough income tax to claim the full credit.
-
-- NY's solar tax credit is inequitable: households making less than \$50,000 make up 24% of owner-occupied households in New York State, but have only received 5% of the state's residential tax credit subsidies.
-
-
-#note(numbered: false, dy: -16em)[#figure([#table(
+#note(numbered: false, dy: -3em)[#figure([#table(
   columns: (2fr, 2fr),
   align: (left, right),
 [Replacement \ year],[Yearly cost \ (millions)],
@@ -65,6 +60,11 @@ Berkeley National Lab (@tab-bucks-cost), we find that:
 [2030],[\$4,837])],
 caption: [Cost to New York State of implementing Bucks for Boilers, by year.])<tab-bucks-cost>
 ]
+
+
+- NY has a large rooftop solar gap: homeowners with an annual income above \$50,000 are 2.5x more likely to have rooftop solar than those making below \$50,000, who don't always pay enough income tax to claim the full credit.
+
+- NY's solar tax credit is inequitable: households making less than \$50,000 make up 24% of owner-occupied households in New York State, but have only received 5% of the state's residential tax credit subsidies.
 
 
 The following table contains a complete breakdown of our
