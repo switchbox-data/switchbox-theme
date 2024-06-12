@@ -23,7 +23,8 @@
       email: "fred@yabbadabba.doo"
     ),
   ),
-  draft: true
+  draft: true,
+  bib: bibliography("../theme/references.bib")
 )
 
 = Brooklyn residents who are highly energy burdened today
@@ -35,7 +36,7 @@ incentives available to homeowners installing rooftop solar.#note[See NY Scoping
 The *Residential Solar Tax Credit Reform Act* (#link("https://www.nysenate.gov/legislation/bills/2023/S3596/amendment/A")[S3596/A6739])
 updates the current tax credit to make it fully refundable, so that low-income homeowners and people living in disadvantaged communities can also benefit from this incentive.#note(dy:-4em)[§1 of S3596/A6739 (Harckham and
 Walker 2024) allows residents to receive the full incentive from the state, regardless how much they owe in income tax. Today, a homeowner installing a \$20K system that owes \$1K in taxes would only receive \$1K, not the full \$5K they are eligible for.] The Act also increases #note(dy: 7em)[The All-Electric Building Act of 2023
-(Kavanagh and Gallagher 2023), a version of
+(#cite_full(<aeba_2023>)), a version of
 which was enacted in the state's FY '23--24 budget.] the tax credit amount to \$10,000, which has
 not been updated since 2006.
 
