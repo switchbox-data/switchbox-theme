@@ -335,6 +335,10 @@
   underline(stroke: 13pt + colors.pistachio-lighter, offset: -3pt, evade: false, background: true, content)
 }
 
+// Cites as author, year
+#let cite_full(label) = {
+  [#cite(label, form:"author"), #cite(label, form:"year")]
+}
 // Last word.
 #let icon = {
   box(inset: (left: 1pt), image("icon-carrot.png", height: 0.75em))
@@ -438,7 +442,7 @@
       subtitle
     })
   let authorblock(authors) = wideblock({
-    set text(font: sans-fonts, size: 10pt)
+    set text(font: sans-fonts, size: 8pt)
     v(1em)
     for i in range(calc.ceil(authors.len() / 3)) {
       let end = calc.min((i + 1) * 3, authors.len())
@@ -450,7 +454,7 @@
         ..slice.map(author => align(left, {
           set text(weight: 400, fill: colors.sky)
           upper(author.name)
-          set text(weight: 300, fill: black)
+          set text(weight: 400, fill: black)
           if "role" in author [
             \ #author.role
           ]
@@ -464,7 +468,7 @@
       )
 
       if not is-last {
-        v(16pt, weak: false)
+        v(6pt, weak: false)
       }
     }})
   let abstractblock(abstract) = wideblock({
@@ -504,7 +508,7 @@
 
   doc
 
-  show bibliography: set text(font:sans-fonts)
+  show bibliography: set text(font:serif-fonts)
   show bibliography: set par(justify:false)
   set bibliography(title:none)
   if bib != none {
@@ -525,6 +529,7 @@ Takes 2 optional keyword and 1 required argument:
 #let note(dy:-2em, numbered:true, content) = {
   if numbered {
     notecounter.step()
+    show link: set text(fill: purple)
     text(weight:"black", 
     fill: colors.carrot,
      {

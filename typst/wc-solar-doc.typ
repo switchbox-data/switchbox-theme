@@ -24,7 +24,7 @@
     ),
   ),
   draft: true,
-  bib: bibliography("../theme/references.bib")
+  bib: bibliography("references.bib")
 )
 
 = Brooklyn residents who are highly energy burdened today
